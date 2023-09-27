@@ -24,6 +24,9 @@ def editar(request, id):
   libro = Libro.objects.get(id=id)
   formulario = LibroForm(request.POST or None, request.FILES or None, instance=libro)
   if formulario.is_valid() and request.POST:
+    if 'imagen' in request.POST:
+      if libro.imagen:
+        libro.imagen.storage.delete(libro.imagen.name)
     formulario.save()
     return redirect('libros')
   return render(request, 'libros/editar.html', {'formulario': formulario})
