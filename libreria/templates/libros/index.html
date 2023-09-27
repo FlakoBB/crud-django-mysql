@@ -21,17 +21,21 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <th scope="col">1</th>
-              <th scope="col">Django con Python</th>
-              <th scope="col">Image.jpg</th>
-              <th scope="col">Libro sobre el framework Django</th>
-              <th scope="col">
-                <a name="" id="" class="btn btn-primary" href="{% url 'editar' %}" role="button">Editar</a>
-                |
-                <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a>
-              </th>
-            </tr>
+            {% for libro in libros %}
+              <tr>
+                <th scope="col">{{ libro.id }}</th>
+                <th scope="col">{{ libro.titulo }}</th>
+                <th scope="col">
+                  <img src="{{ libro.imagen.url }}" alt="Portada del libro {{ libro.titulo }}" height="100">
+                </th>
+                <th scope="col">{{ libro.descripcion }}</th>
+                <th scope="col">
+                  <a name="" id="" class="btn btn-primary" href="{% url 'editar' libro.id %}" role="button">Editar</a>
+                  |
+                  <a name="" id="" class="btn btn-danger" href="{% url 'eliminar' libro.id %}" role="button">Borrar</a>
+                </th>
+              </tr>
+            {% endfor %}
           </tbody>
         </table>
       </div>
